@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 400px;
+            height: 400px;
+            background-color: antiquewhite;
+            margin: 0 auto;
+
+            position: relative;
+        }
+
+        .inner-box {
+            position: absolute;
+            background-color: aqua;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            z-index: 99;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        const box = document.querySelector('#box');
+        // !! @lijiaqi bug在这 需要用 move 中的 x y 减去开始的 x y
+        let startX;
+        let startY;
+        let mask;
+        function downCallback() {
+            const x = event.offsetX
+            const y = event.offsetY
+            const maskDom = document.createElement("div");
+            maskDom.classList.add('inner-box');
+            box.appendChild(maskDom)
+            mask = maskDom;
+            mask.style.left = x + 'px'
+            mask.style.top = y + 'px'
+
+            // !! @lijiaqi bug在这 按下时赋初值
+            startX = x
+            startY = y
+
+            console.log('down = ', x, y);
+            box.addEventListener('mousemove', moveCallback)
+        }
+        function upCallback() {
+            box.removeEventListener('mousemove', moveCallback)
+        }
+        function moveCallback(event) {
+            const x = event.offsetX
+            const y = event.offsetY
+
+            console.log('move = ', x, y);
+
+            mask.style.width = x - startX+ 'px';
+            mask.style.height = y - startY + 'px';
+        }
+
+        box.addEventListener('mousedown', downCallback)
+        box.addEventListener('mouseup', upCallback)
+    </script>
+</body>
+</html>

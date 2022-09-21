@@ -1,0 +1,25 @@
+{
+  "name": "vite-test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.185",
+    "echarts": "^5.3.3",
+    "lodash": "^3.10.1",
+    "stylus": "^0.58.1",
+    "stylus-loader": "^7.0.0",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7",
+    "vue-tsc": "^0.38.1"
+  }
+}
